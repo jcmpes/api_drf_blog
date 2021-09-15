@@ -1,4 +1,4 @@
-"""User admin classes."""
+""" User admin classes. """
 
 # Django
 from django.contrib import admin
@@ -9,7 +9,7 @@ from users.models import User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    """User admin."""
+    """ User admin. """
 
     list_display = ('pk', 'username', 'email',)
     list_display_links = ('pk', 'username', 'email',)

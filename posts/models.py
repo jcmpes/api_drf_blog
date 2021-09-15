@@ -13,6 +13,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     body = RichTextField(null=True)
     image = models.ImageField(null=True, upload_to='posts')
+    published = models.BooleanField(default=True)
 
 
     def __str__(self):

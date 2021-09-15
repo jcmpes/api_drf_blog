@@ -9,9 +9,18 @@ from users.permissions import IsStandardUser
 # Serializers
 from posts.serializers import (PostModelSerializer, PostSerializer)
 
-class PostViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+# Models
+from posts.models import Post
+
+
+class PostViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
 
     serializer_class = PostModelSerializer
+
+    def get_queryset(self):
+      """ Restrict list to only user posts. """
+      queryset = Post.objects.filter(user=self.request.user)
+      return queryset
 
     def get_permissions(self):
         permission_classes = [IsAuthenticated, IsStandardUser]

@@ -8,7 +8,7 @@ class Post(models.Model):
     """Post model."""
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateTimeField()
+    date = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=255)
     body = RichTextField(null=True)
 

@@ -20,7 +20,6 @@ class PostModelSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.Serializer):
 
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    date = serializers.DateTimeField()
     body = serializers.CharField(max_length=10000)
 
     def create(self, data):

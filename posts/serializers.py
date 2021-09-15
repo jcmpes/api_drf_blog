@@ -18,12 +18,15 @@ class PostModelSerializer(serializers.ModelSerializer):
             'title',
             'body',
             'image',
+            'published',
         )
 
 class PostSerializer(serializers.Serializer):
 
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     body = serializers.CharField(max_length=10000)
+    title = serializers.CharField(max_length=255)
+    published = serializers.BooleanField(default=True)
     image = serializers.ImageField(
         validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])],
         required=False

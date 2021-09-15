@@ -21,14 +21,15 @@ class PostViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
 
     def get_queryset(self):
         """ Restrict list to only user posts. """
-        #queryset = Post.objects.filter(user=self.request.user)
+        queryset = Post.objects.filter(user=self.request.user)
 
         """ Return all posts sorted descendingly by date"""
-        queryset = Post.objects.all().order_by('-date')
+        #queryset = Post.objects.all().order_by('-date')
         return queryset
 
     def get_permissions(self):
         permission_classes = [IsAuthenticated, IsStandardUser]
+        print([permission() for permission in permission_classes])
         return [permission() for permission in permission_classes]
 
 

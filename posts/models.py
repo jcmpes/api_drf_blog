@@ -1,3 +1,4 @@
+from os import setpriority
 from django.db import models
 from users.models import User
 
@@ -11,6 +12,7 @@ class Post(models.Model):
     date = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=255)
     body = RichTextField(null=True)
+    image = models.ImageField(null=True, upload_to='posts')
 
 
     def __str__(self):

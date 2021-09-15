@@ -88,6 +88,7 @@ class UserSignUpSerializer(serializers.Serializer):
         return data
 
     def create(self, data):
+        # Remove the password_confirmation piece of data prior to saving
         data.pop('password_confirmation')
         user = User.objects.create_user(**data)
         return user

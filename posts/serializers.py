@@ -7,6 +7,7 @@ from posts.models import Post
 
 class PostModelSerializer(serializers.ModelSerializer):
     """Post Model Serializer"""
+    user = serializers.CharField(source='user.email', read_only=True)
 
     class Meta:
         """Meta class."""
@@ -14,6 +15,7 @@ class PostModelSerializer(serializers.ModelSerializer):
         model = Post
         fields = (
             'pk',
+            'user',
             'date',
             'title',
             'body',

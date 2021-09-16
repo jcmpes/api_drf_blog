@@ -14,7 +14,7 @@ from posts.models import Post
 
 
 class PostViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
-                  mixins.UpdateModelMixin, mixins.DestroyModelMixin,
+                #   mixins.UpdateModelMixin, mixins.DestroyModelMixin,
                   viewsets.GenericViewSet):
 
     serializer_class = PostModelSerializer
@@ -38,3 +38,23 @@ class PostViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
         post = serializer.save()
         data = PostModelSerializer(post).data
         return Response(data, status=status.HTTP_201_CREATED)
+
+
+class PostEditViewSet(mixins.UpdateModelMixin, mixins.DestroyModelMixin,
+                  viewsets.GenericViewSet):
+
+    serializer_class = PostModelSerializer
+
+    def get_queryset(self):
+        """ Restrict list to only user posts. """
+        queryset = Post.objects.filter(user=self.request.user)
+        return queryset
+
+    def get_permissions(self):
+        permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)

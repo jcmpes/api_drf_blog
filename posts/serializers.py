@@ -7,6 +7,8 @@ from posts.models import Post
 
 class PostModelSerializer(serializers.ModelSerializer):
     """Post Model Serializer"""
+
+    # Populate posts with user email.
     user = serializers.CharField(source='user.email', read_only=True)
 
     class Meta:
@@ -44,10 +46,10 @@ class PostSerializer(serializers.Serializer):
                 raise serializers.ValidationError(
                     f"La imagen es demasiado grande, el peso máximo permitido es de 512KB y el tamaño enviado es de {round(image.size / 1024)}KB"
                 )
-        
+
         return data
 
     def create(self, data):
-
         post = Post.objects.create(**data)
         return post
+

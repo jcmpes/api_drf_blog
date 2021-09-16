@@ -29,7 +29,6 @@ class PostViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
 
     def get_permissions(self):
         permission_classes = [IsAuthenticated, IsStandardUser]
-        print([permission() for permission in permission_classes])
         return [permission() for permission in permission_classes]
 
 

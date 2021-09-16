@@ -31,6 +31,7 @@ class UserViewSet(viewsets.GenericViewSet):
 
     @action(detail=False, methods=['post'])
     def signup(self, request):
+        print(request.body)
         """User sign up."""
         serializer = UserSignUpSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)

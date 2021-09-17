@@ -33,17 +33,17 @@ class UserLoginSerializer(serializers.Serializer):
     # Data validation
     def validate(self, data):
 
-        # authenticate recibe las credenciales, si son válidas devuelve el objeto del usuario
+        # authenticate receives the credentrials, if valid it returns hthe user object
         user = authenticate(username=data['email'], password=data['password'])
         if not user:
             raise serializers.ValidationError('Las credenciales no son válidas')
 
-        # Guardamos el usuario en el contexto para posteriormente en create recuperar el token
+        # Save the user in the context to recover token eventually in the create function
         self.context['user'] = user
         return data
 
     def create(self, data):
-        """Generar o recuperar token."""
+        """Create o recover token."""
         token, created = Token.objects.get_or_create(user=self.context['user'])
         return self.context['user'], token.key
 
